@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>枫叶苑</title>
+    <link>http://example.com/</link>
+    
+    <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>蜗牛快跑</description>
+    <pubDate>Wed, 26 Jul 2023 03:04:31 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Hello World</title>
+      <link>http://example.com/2023/07/26/hello-world/</link>
+      <guid>http://example.com/2023/07/26/hello-world/</guid>
+      <pubDate>Wed, 26 Jul 2023 03:04:31 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>http://example.com/2023/07/26/hello-world/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>聊一聊反射这件事</title>
+      <link>http://example.com/2019/07/03/%E8%81%8A%E4%B8%80%E8%81%8A%E5%8F%8D%E5%B0%84%E8%BF%99%E4%BB%B6%E4%BA%8B/</link>
+      <guid>http://example.com/2019/07/03/%E8%81%8A%E4%B8%80%E8%81%8A%E5%8F%8D%E5%B0%84%E8%BF%99%E4%BB%B6%E4%BA%8B/</guid>
+      <pubDate>Wed, 03 Jul 2019 03:30:03 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;相信对于反射这个名次并不陌生，但是如果只是做业务开发确很少用到它，最近在学习Spring源码时经常看到一些反射的操作，所以做一些汇总和个人的理解。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在《Java核心技术卷1》中给出的定义是：能够分析类能力的程序叫做反射。乍一听有些抽象</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>相信对于反射这个名次并不陌生，但是如果只是做业务开发确很少用到它，最近在学习Spring源码时经常看到一些反射的操作，所以做一些汇总和个人的理解。</p><blockquote><p>在《Java核心技术卷1》中给出的定义是：能够分析类能力的程序叫做反射。乍一听有些抽象，所以我用大白话梳理一下就是，能够在程序运行期间去获取某个类内部信息的方式叫做反射，比如类的属性、方法、构造器等。</p></blockquote><p>在Java中对应的就是java.lang.reflect包下的几个类，Class、Method、Field、Constructor等。</p><h2 id="类结构"><a href="#类结构" class="headerlink" title="类结构"></a>类结构</h2><p>在Java中，每个对象自从诞生之初就会带一个独有的标识，而在Java运行时会为每个对象都维护一个运行时的类别标识，可以帮助定位到所属哪一个类，比如</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">User u;</span><br><span class="line"></span><br><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> u.getClass();</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>由此可见，clazz作为Class的类对象，它描述的维度是类的属性。而比如我的User类中有几个字段，如name、age。这时u作为User的对象，描述的是这个User的属性。这两点是不一样的。</p><p>还可以用forName的静态方法来获取一个类对象，如</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> <span class="string">&quot;com.cc.User&quot;</span>;</span><br><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(className);</span><br></pre></td></tr></table></figure><p>我们平时也会见到如Class&lt;?&gt;这样子的用法，实际上呢Class对象实际上表示的是一个类型，这可以是类，也可以不是类，它再隐藏是一点是一个泛型。</p><p>常用API：</p><p>static Class forName(String ClassName) 返回一个类对象</p><p>..</p><h2 id="分析类能力"><a href="#分析类能力" class="headerlink" title="分析类能力"></a>分析类能力</h2><blockquote><p>反射机制中最强大的一点莫过于分析类的能力。</p></blockquote><h3 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h3><p>用于描述类的字段。有一些常用的方法，比如getName，用于返回字段的名称。还有一个getType，用于描述字段类型的一个对象。</p><p>getModifier方法用于返回修饰符，这个方法在Method类和Constructor类中也有。在此返回整数的基础上可以调Modifier类中的方法，判断其所属于哪个修饰符。</p><h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><p>用于描述类的方法。</p><h3 id="Constructor"><a href="#Constructor" class="headerlink" title="Constructor"></a>Constructor</h3><p>用于描述类的构造器。</p><h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><p>其中也有一些比较常用的方法，如</p><ul><li>获取这个类的公共字段 getFields()</li><li>获取这个类的公共方法 getMethods()</li><li>获取这个类的公共构造方法 getConstructors()</li></ul><p>基于以上几个，还提供一些升级的方法，比如</p><p>getDeclareFields()、getDeclareMethods()、getDeclareConstructors()**还分别支持类中的私有成员(private修饰)、受保护成员(protected修饰)等信息，但是不包括父类的信息。</p><h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p>在Java中有一种机制叫做访问控制，反射的默认行为就是受到了限制，但是可以调用Field、Method等的setAccessible(true)方法来绕过这个控制。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇主要总结了反射的一些基本概念以及常用的用法，后面会针对反射进行深入的研究。以及大量真实环境的应用。</p><blockquote><p>v1.1 2023.04.03 这篇文章是最初发表在掘金社区的，反响也不错，但是由于当时只是随便写写，内容并不是很好，有想过把反射这部分再进行一个全面的补充，但是还没有实行！</p></blockquote>]]></content:encoded>
+      
+      
+      
+      
+      <comments>http://example.com/2019/07/03/%E8%81%8A%E4%B8%80%E8%81%8A%E5%8F%8D%E5%B0%84%E8%BF%99%E4%BB%B6%E4%BA%8B/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>解析Java中synchronized关键字的同步机制原理</title>
+      <link>http://example.com/2019/06/20/%E8%A7%A3%E6%9E%90Java%E4%B8%ADsynchronized%E5%85%B3%E9%94%AE%E5%AD%97%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86/</link>
+      <guid>http://example.com/2019/06/20/%E8%A7%A3%E6%9E%90Java%E4%B8%ADsynchronized%E5%85%B3%E9%94%AE%E5%AD%97%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86/</guid>
+      <pubDate>Thu, 20 Jun 2019 12:26:13 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;关于synchronized的使用，我在上一篇文章&lt;a href=&quot;https://juejin.cn/post/7246615128748654649&quot;&gt;确保多线程环境下数据一致性的关键：synchronized的应用&lt;/a&gt;写了。接下来进入原理的部分。&lt;/p&gt;
+&lt;p&gt;先</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>关于synchronized的使用，我在上一篇文章<a href="https://juejin.cn/post/7246615128748654649">确保多线程环境下数据一致性的关键：synchronized的应用</a>写了。接下来进入原理的部分。</p><p>先看下面一段代码：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SynchronizeTheory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 省略代码逻辑...</span></span><br><span class="line">        System.out.println(<span class="string">&quot;normal code.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>假设现在这是一段普通的代码逻辑，我们将其编译一下，然后通过javap看一下已编译类文件的详细信息。</p><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7442bffaa6e245a7b156cd354e7a8b96~tplv-k3u1fbpfcp-zoom-1.image"></p><p>可以看到一些信息比如版本号、MD5、常量池、构造器、方法等信息，找到method方法可以看到标志位显示的是ACC_PUBLIC，说明该方法是一个PUBLIC方法。</p><p>现在，假设执行method方法这段代码逻辑时存在临界资源，多线程下可能会有数据不一致的情况，我们需要把这段方法改成一个同步方法，加上synchronized关键字，如下</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SynchronizeTheory</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;进入同步代码块&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 省略同步逻辑...</span></span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;Synchronized code.&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>再看下编译后的信息：</p><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5d4b17f96a41489ca9d6c74cde07e0af~tplv-k3u1fbpfcp-zoom-1.image"></p><p>可以看到，<strong>标志位在原有ACC_PUBLIC的基础上，又新增了ACC_SYNCHRONIZED标识符。说明method还是一个同步方法</strong>。</p><p>到这里可以解释synchronized能够实现同步的原理了。在Java字节码中，使用synchronize关键字标记的方法（或代码块）在编译为字节码时会通过 <code>monitorenter</code> 和 <code>monitorexit</code> 指令来实现同步。monitorenter对应同步代码块的开始位置，monitorexit指令对应同步代码块的结束位置。从行号表中也可以看出对应关系：</p><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/af886387c2894af5b11faca4a8d02f36~tplv-k3u1fbpfcp-zoom-1.image"></p><p>这张图再结合一下源代码就清晰了：</p><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4d57d507ba104b59879385eda45919c7~tplv-k3u1fbpfcp-zoom-1.image"></p><p>在源代码第13行时进入到同步代码块中，在第19行时退出同步代码块。结合monitorenter和monitorexit指令的执行时机体现在程序里就是：</p><p><strong>在进入同步方法时也就是第13行，执行monitorenter指令，这时会尝试获取相关对象的Monitor锁，如果锁未被其他线程占用，则该线程将获得锁并进入Monitor。如果锁已被其他线程持有，线程将被阻塞直到锁被释放。当执行到代码19行时，这时要退出同步方法，会执行monitorexit指令，会释放持有的Monitor锁</strong>。</p><p>这时你可能会有很多疑问，比如从字节码中没有看到这两条指令啊？或者Monitor锁又是啥…</p><p>不急，这几个问题我会一个个说来，说这些之前先解释下锁的可重入性。<strong>synchronized是一种对象锁(锁的是对象而非引用)，作用粒度是对象，可以用来实现对临界资源的同步互斥访问，是可重入锁</strong>。</p><p>结合可重入性再补充一下上面说的这两条指令的执行机制：</p><p><strong>任何一个对象都有一个Monitor与之关联，当且一个Monitor被持有后，它将处于锁定状态</strong>。进入同步代码块的线程会通过monitor的进入数来判断是否可进入，如果monitor的进入数为0，该线程进入，也就是monitorenter指令执行成功，这是进入数就设置为1，并且该线程为monitor的持有者。</p><p>如果该线程已经占有了该monitor(每个对象头中会有偏向线程ID信息，以此来定位所属线程)，只是重新进入，则monitor的进入数加1。如果是其他线程占用monitor，则线程进入阻塞状态，等待monitor的进入数为0，再重新尝试进入。</p><p>所以在执行monitorexit时，进入数也要减1。如果某个线程重入了monitor，完全退出时也要执行相应的释放次数。确保monitor进入数为0。当monitor的进入数为0时，这个线程也就是释放了持有权。</p><p>再说下为何字节码中没有这两条指令的信息？</p><p>这里其实只是没有直接的体现，由于反编译器对字节码进行了优化或简化，将synchronized方法的同步实现以更简洁的方式表示出来了，在实际执行时，Java虚拟机会根据synchronize的语义来确保同步。<code>monitorenter</code>指令用于获取对象的监视器锁，而<code>monitorexit</code>指令用于释放锁。这些指令会在同步块的开始和结束位置隐式地执行。这也是因为同步的实现是由<strong>Java虚拟机负责的，而不是由反编译器生成的字节码所体现</strong>。</p><p>那Monitor监视器锁又是什么？</p><p>在Java虚拟机中，每个对象都会与一个Monitor关联。它通常被<strong>描述为一个对象</strong>。与一切皆对象一样，所有的Java对象都有成为Monitor的潜质。<strong>因为在Java的设计中 ，每一个Java对象设计中就带了一把看不见的锁，它叫做内部锁或者Monitor锁</strong>。也就是通常说Synchronized的对象锁，MarkWord锁标识位为10，其中指针指向的是Monitor对象的起始地址。在HotSpot实现的Java虚拟机中，Monitor是由ObjectMonitor实现的：</p><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f874e44058e1480f974c61fc8205c7c4~tplv-k3u1fbpfcp-zoom-1.image"></p><p><strong>我们用synchronized实现了同步方法，Java代码编译成字节码后通过标识符ACC_SYNCHRONIZED来判断同步状态，通过monitor指令获取Monitor监视器锁，monitorexit释放监视器锁，由Hotspot中的ObjectMonitor来实现获取与释放的逻辑</strong>。</p><p>这样子串起来以后，是不是容易理解一些了，通过加深对synchronized的理解，来帮助我们写出高效且线程安全的Java程序。</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>http://example.com/2019/06/20/%E8%A7%A3%E6%9E%90Java%E4%B8%ADsynchronized%E5%85%B3%E9%94%AE%E5%AD%97%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -193,7 +193,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-07-26 16:25:43" itemprop="dateCreated datePublished" datetime="2023-07-26T16:25:43+08:00">2023-07-26</time>
+              <time title="创建时间：2023-07-26 16:40:58" itemprop="dateCreated datePublished" datetime="2023-07-26T16:40:58+08:00">2023-07-26</time>
             </span>
 
           
@@ -208,7 +208,7 @@
 
       
           <hr>
-<h2 id="title-解析Java中synchronized关键字的同步机制原理-date-2019-11-01-20-26-01-tags"><a href="#title-解析Java中synchronized关键字的同步机制原理-date-2019-11-01-20-26-01-tags" class="headerlink" title="  title: 解析Java中synchronized关键字的同步机制原理  date: 2019-11-01 20:26:01  tags:"></a>  title: 解析Java中synchronized关键字的同步机制原理<br>  date: 2019-11-01 20:26:01<br>  tags:</h2><p>关于synchronized的使用，我在上一篇文章<a target="_blank" rel="noopener" href="https://juejin.cn/post/7246615128748654649">确保多线程环境下数据一致性的关键：synchronized的应用</a>写了。接下来进入原理的部分。</p>
+<h2 id="title-解析Java中synchronized关键字的同步机制原理-date-2019-11-01-20-26-01-tags"><a href="#title-解析Java中synchronized关键字的同步机制原理-date-2019-11-01-20-26-01-tags" class="headerlink" title=" title: 解析Java中synchronized关键字的同步机制原理 date: 2019-11-01 20:26:01 tags:"></a> title: 解析Java中synchronized关键字的同步机制原理<br> date: 2019-11-01 20:26:01<br> tags:</h2><p>关于synchronized的使用，我在上一篇文章<a target="_blank" rel="noopener" href="https://juejin.cn/post/7246615128748654649">确保多线程环境下数据一致性的关键：synchronized的应用</a>写了。接下来进入原理的部分。</p>
 <p>先看下面一段代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SynchronizeTheory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 省略代码逻辑...</span></span><br><span class="line">        System.out.println(<span class="string">&quot;normal code.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -430,10 +430,6 @@
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
-<div class="theme-info">
-  <div class="powered-by"></div>
-  <span class="post-count">博客全站共1.5k字</span>
-</div>
 
         
 

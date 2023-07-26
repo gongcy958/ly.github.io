@@ -169,6 +169,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/26/%E8%81%8A%E4%B8%80%E8%81%8A%E5%8F%8D%E5%B0%84%E8%BF%99%E4%BB%B6%E4%BA%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Mine">
+      <meta itemprop="description" content="蜗牛快跑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="枫叶苑">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/26/%E8%81%8A%E4%B8%80%E8%81%8A%E5%8F%8D%E5%B0%84%E8%BF%99%E4%BB%B6%E4%BA%8B/" class="post-title-link" itemprop="url">聊一聊反射这件事</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-07-26 16:59:59" itemprop="dateCreated datePublished" datetime="2023-07-26T16:59:59+08:00">2023-07-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>相信对于反射这个名次并不陌生，但是如果只是做业务开发确很少用到它，最近在学习Spring源码时经常看到一些反射的操作，所以做一些汇总和个人的理解。</p>
+<blockquote>
+<p>在《Java核心技术卷1》中给出的定义是：能够分析类能力的程序叫做反射。乍一听有些抽象，所以我用大白话梳理一下就是，能够在程序运行期间去获取某个类内部信息的方式叫做反射，比如类的属性、方法、构造器等。</p>
+</blockquote>
+<p>在Java中对应的就是java.lang.reflect包下的几个类，Class、Method、Field、Constructor等。</p>
+<h2 id="类结构"><a href="#类结构" class="headerlink" title="类结构"></a>类结构</h2><p>在Java中，每个对象自从诞生之初就会带一个独有的标识，而在Java运行时会为每个对象都维护一个运行时的类别标识，可以帮助定位到所属哪一个类，比如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">User u;</span><br><span class="line"></span><br><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> u.getClass();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>由此可见，clazz作为Class的类对象，它描述的维度是类的属性。而比如我的User类中有几个字段，如name、age。这时u作为User的对象，描述的是这个User的属性。这两点是不一样的。</p>
+<p>还可以用forName的静态方法来获取一个类对象，如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> <span class="string">&quot;com.cc.User&quot;</span>;</span><br><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(className);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们平时也会见到如Class&lt;?&gt;这样子的用法，实际上呢Class对象实际上表示的是一个类型，这可以是类，也可以不是类，它再隐藏是一点是一个泛型。</p>
+<p>常用API：</p>
+<p>static Class forName(String ClassName) 返回一个类对象</p>
+<p>..</p>
+<h2 id="分析类能力"><a href="#分析类能力" class="headerlink" title="分析类能力"></a>分析类能力</h2><blockquote>
+<p>反射机制中最强大的一点莫过于分析类的能力。</p>
+</blockquote>
+<h3 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h3><p>用于描述类的字段。有一些常用的方法，比如getName，用于返回字段的名称。还有一个getType，用于描述字段类型的一个对象。</p>
+<p>getModifier方法用于返回修饰符，这个方法在Method类和Constructor类中也有。在此返回整数的基础上可以调Modifier类中的方法，判断其所属于哪个修饰符。</p>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><p>用于描述类的方法。</p>
+<h3 id="Constructor"><a href="#Constructor" class="headerlink" title="Constructor"></a>Constructor</h3><p>用于描述类的构造器。</p>
+<h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><p>其中也有一些比较常用的方法，如</p>
+<ul>
+<li>获取这个类的公共字段 getFields()</li>
+<li>获取这个类的公共方法 getMethods()</li>
+<li>获取这个类的公共构造方法 getConstructors()</li>
+</ul>
+<p>基于以上几个，还提供一些升级的方法，比如</p>
+<p>getDeclareFields()、getDeclareMethods()、getDeclareConstructors()**还分别支持类中的私有成员(private修饰)、受保护成员(protected修饰)等信息，但是不包括父类的信息。</p>
+<h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p>在Java中有一种机制叫做访问控制，反射的默认行为就是受到了限制，但是可以调用Field、Method等的setAccessible(true)方法来绕过这个控制。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇主要总结了反射的一些基本概念以及常用的用法，后面会针对反射进行深入的研究。以及大量真实环境的应用。</p>
+<blockquote>
+<p>v1.1 2023.04.03 这篇文章是最初发表在掘金社区的，反响也不错，但是由于当时只是随便写写，内容并不是很好，有想过把反射这部分再进行一个全面的补充，但是还没有实行！</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/26/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -399,7 +496,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -437,7 +534,57 @@
   </div>
 
 
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 

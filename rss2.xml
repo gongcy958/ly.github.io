@@ -9,8 +9,23 @@
     <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>蜗牛快跑</description>
-    <pubDate>Wed, 26 Jul 2023 03:04:31 GMT</pubDate>
+    <pubDate>Thu, 27 Jul 2023 01:28:56 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>javac编译器如何运行的</title>
+      <link>http://example.com/2023/07/27/javac%E7%BC%96%E8%AF%91%E5%99%A8%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E7%9A%84/</link>
+      <guid>http://example.com/2023/07/27/javac%E7%BC%96%E8%AF%91%E5%99%A8%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E7%9A%84/</guid>
+      <pubDate>Thu, 27 Jul 2023 01:28:56 GMT</pubDate>
+      
+      
+      
+      
+      
+      
+      <comments>http://example.com/2023/07/27/javac%E7%BC%96%E8%AF%91%E5%99%A8%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E7%9A%84/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Hello World</title>
